@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe4e1;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+        #container { padding: 20px; }
+        img { width: 200px; border-radius: 15px; margin-bottom: 20px; }
+        h1 { color: #d02090; font-size: 1.8rem; }
+        .buttons { display: flex; gap: 20px; justify-content: center; align-items: center; margin-top: 20px; }
+        button {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #yesButton { background-color: #4caf50; color: white; }
+        #noButton { background-color: #f44336; color: white; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="question-page">
+        <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif" alt="Cute cat">
+        <h1 id="question">Will you be my Valentine? 💖</h1>
+        <div class="buttons">
+            <button id="yesButton" onclick="celebrate()">Yes</button>
+            <button id="noButton" onclick="reject()">No</button>
+        </div>
+    </div>
+
+    <div id="success-page" class="hidden">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/UMONHGSufp3Ik/giphy.gif" alt="Happy dance">
+        <h1>Yay! See you on the 14th! 🥰</h1>
+    </div>
+
+    <script>
+        let yesSize = 1.2;
+        let noClickCount = 0;
+        const phrases = ["No", "Are you sure?", "Pookie please", "Don't do this", "I'm gonna cry...", "REALLY sure?"];
+
+        function reject() {
+            noClickCount++;
+            const yesBtn = document.getElementById('yesButton');
+            const noBtn = document.getElementById('noButton');
+            
+            // Make Yes button bigger
+            yesSize += 0.4;
+            yesBtn.style.transform = `scale(${yesSize})`;
+            
+            // Change No button text
+            noBtn.innerText = phrases[Math.min(noClickCount, phrases.length - 1)];
+            
+            // Move No button slightly to be annoying
+            const x = Math.random() * 20 - 10;
+            const y = Math.random() * 20 - 10;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function celebrate() {
+            document.getElementById('question-page').classList.add('hidden');
+            document.getElementById('success-page').classList.remove('hidden');
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        }
+    </script>
+</body>
+</html>
