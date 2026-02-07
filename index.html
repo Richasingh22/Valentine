@@ -53,7 +53,7 @@
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: transform 0.3s ease;
         }
 
         #yesButton {
@@ -95,7 +95,7 @@
 
     <!-- 💕 QUESTION PAGE -->
     <div id="question-page">
-        <!-- ✅ EXACT cute cat GIF you provided -->
+        <!-- ✅ EXACT cute cat GIF -->
         <img
             id="main-gif"
             src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif"
@@ -105,8 +105,8 @@
         <h1>Will you be my Valentine? 💖</h1>
 
         <div class="buttons">
-            <button id="yesButton" onclick="celebrate()">Yes</button>
-            <button id="noButton" onclick="reject()">No</button>
+            <button id="yesButton">Yes</button>
+            <button id="noButton">No</button>
         </div>
     </div>
 
@@ -116,4 +116,71 @@
             src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"
             alt="Happy celebration"
         >
-        <h1>Y
+        <h1>Yay! See you on the 14th! 🥰</h1>
+        <div class="love-text">I love you, Jaan 😘</div>
+    </div>
+
+    <!-- ✅ FINAL SCRIPT -->
+    <script>
+        let yesSize = 1.2;
+        let noClickCount = 0;
+
+        const phrases = [
+            "No",
+            "Are you sure?",
+            "Pookie please 🥺",
+            "Don't do this 😭",
+            "I'm gonna cry...",
+            "REALLY sure???"
+        ];
+
+        const yesBtn = document.getElementById("yesButton");
+        const noBtn = document.getElementById("noButton");
+        const questionPage = document.getElementById("question-page");
+        const successPage = document.getElementById("success-page");
+
+        yesBtn.addEventListener("click", celebrate);
+        noBtn.addEventListener("click", reject);
+
+        function reject() {
+            noClickCount++;
+
+            yesSize += 0.4;
+            yesBtn.style.transform = `scale(${yesSize})`;
+
+            noBtn.innerText = phrases[Math.min(noClickCount, phrases.length - 1)];
+
+            const x = Math.random() * 30 - 15;
+            const y = Math.random() * 30 - 15;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function celebrate() {
+            questionPage.classList.add("hidden");
+            successPage.classList.remove("hidden");
+
+            confetti({
+                particleCount: 180,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+
+            launchHearts();
+        }
+
+        function launchHearts() {
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.innerText = "💖";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 5000);
+            }
+        }
+    </script>
+
+</body>
+</html>
