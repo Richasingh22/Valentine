@@ -21,8 +21,6 @@
             overflow: hidden;
         }
 
-        #container { padding: 20px; }
-
         img {
             width: 200px;
             border-radius: 15px;
@@ -32,6 +30,13 @@
         h1 {
             color: #d02090;
             font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .love-text {
+            font-size: 1.4rem;
+            color: #ff1493;
+            margin-top: 8px;
         }
 
         .buttons {
@@ -88,14 +93,15 @@
 </head>
 <body>
 
+    <!-- 💕 QUESTION PAGE -->
     <div id="question-page">
+        <!-- 🐱 Cute cat GIF stays here -->
         <img
-            id="main-gif"
-            src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
-            alt="Cute love gif"
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbG5hMXR2aGJ4ZzRjMTR1bWMyNWl1emVtN3F6aDN3NnFmbG1wMSZjdD1n/JIX9t2j0ZTN9S/giphy.gif"
+            alt="Cute cat"
         >
 
-        <h1 id="question">Will you be my Valentine? 💖</h1>
+        <h1>Will you be my Valentine? 💖</h1>
 
         <div class="buttons">
             <button id="yesButton" onclick="celebrate()">Yes</button>
@@ -103,13 +109,14 @@
         </div>
     </div>
 
+    <!-- 💖 SUCCESS PAGE -->
     <div id="success-page" class="hidden">
-        <!-- ✅ Working cute celebration GIF -->
         <img
             src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"
             alt="Happy celebration"
         >
         <h1>Yay! See you on the 14th! 🥰</h1>
+        <div class="love-text">I love you, Jaan 😘</div>
     </div>
 
     <script>
@@ -131,14 +138,11 @@
             const yesBtn = document.getElementById('yesButton');
             const noBtn = document.getElementById('noButton');
 
-            // Grow Yes button
             yesSize += 0.4;
             yesBtn.style.transform = `scale(${yesSize})`;
 
-            // Change No text
             noBtn.innerText = phrases[Math.min(noClickCount, phrases.length - 1)];
 
-            // Wiggle No button
             const x = Math.random() * 30 - 15;
             const y = Math.random() * 30 - 15;
             noBtn.style.transform = `translate(${x}px, ${y}px)`;
@@ -148,14 +152,12 @@
             document.getElementById('question-page').classList.add('hidden');
             document.getElementById('success-page').classList.remove('hidden');
 
-            // 🎉 Confetti
             confetti({
                 particleCount: 180,
                 spread: 80,
                 origin: { y: 0.6 }
             });
 
-            // ❤️ Floating hearts
             launchHearts();
         }
 
